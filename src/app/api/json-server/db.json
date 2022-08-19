@@ -1,0 +1,35 @@
+{
+  "cashAccounts": [
+    { "id": 1, "name": "Кошелек", "balance": 1000 },
+    { "id": 2, "name": "Дебетовая карта", "balance": 2000 },
+    { "id": 3, "name": "Вклад в банке", "balance": 3000 }
+  ],
+  "expenseCategory": [
+    { "id": 1, "name": "Кафе и рестораны" },
+    { "id": 2, "name": "Продукты" },
+    { "id": 3, "name": "Здоровье и фитнес" }
+  ],
+  "incomeCategory": [
+    { "id": 1, "name": "Зарплата"},
+    { "id": 2, "name": "Проценты от вклада в банке"},
+    { "id": 3, "name": "Деньги полученные в подарок" }
+  ],
+  "operations": [
+    {
+      "id": 1,
+      "date": 1660743951490,
+      "typeOperation": "income",
+      "cashAccountId": 2,
+      "categoryId": 1,
+      "comment": "таки получил я зарплату"
+    },
+    {
+      "id": 2,
+      "date": 1660743000001,
+      "typeOperation": "expense",
+      "cashAccountId": 1,
+      "categoryId": 3,
+      "comment": "купил какую то фигню... "
+    }
+  ]
+}

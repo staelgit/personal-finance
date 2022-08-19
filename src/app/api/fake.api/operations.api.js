@@ -4,14 +4,16 @@ const operations = [
       date: 1660743951490,
       typeOperation: 'income',
       cashAccountId: '67rdca3eeb7f6fgeed471818',
-      categoryId: '67rdca3eeb7f6fgeed000001'
+      categoryId: '67rdca3eeb7f6fgeed000001',
+      comment: 'таки получил я зарплату'
    },
    {
       _id: '67rdca3eeb7f6fgeed471816',
       date: 1660743000001,
       typeOperation: 'expense',
       cashAccountId: '67rdca3eeb7f6fgeed471818',
-      categoryId: '67rdca3eeb7f6fgeed888881'
+      categoryId: '67rdca3eeb7f6fgeed888881',
+      comment: 'купил какую то фигню... '
    }
 ];
 

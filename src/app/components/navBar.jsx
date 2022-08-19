@@ -2,16 +2,15 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
+   const classes = 'px-4 py-2 rounded-xl';
    return (
-      <nav className="nav nav-tabs mb-2">
-         <NavLink exact className="nav-link" to="/">
-            Main
+      <nav className="space-x-2">
+         <NavLink className={classes} to="/">
+            Главная
          </NavLink>
-         <NavLink className="nav-link" to="/login">
-            Login
-         </NavLink>
-         <NavLink className="nav-link" to="/users">
-            Users
+
+         <NavLink className={classes} to="/operations">
+            История
          </NavLink>
       </nav>
    );
