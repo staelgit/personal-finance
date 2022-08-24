@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
    return (
-      <div className="flex text-center h-full justify-center items-center">
+      <div className="flex justify-center items-center text-center text-sm h-full">
          <a
             href="https://github.com/staelgit/personal-finance"
             target="_blank"

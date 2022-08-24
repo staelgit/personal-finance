@@ -2,29 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-.active {
-    @apply bg-amber-100
+@layer base {
+    h1 {
+        @apply font-bold text-2xl;
+    }
+    a {
+        @apply hover:text-black
+    }
 }
 
-
-
-
-
-
-
-
-/* create-react-app css
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer components {
+    .active {
+        @apply relative after:absolute after:w-full after:h-full after:border-b-primary after:border-b-2 pointer-events-none text-black
+    }
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-*/
