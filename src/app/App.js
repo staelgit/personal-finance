@@ -16,7 +16,7 @@ import UserProfile from './layouts/userProfile';
 
 function App() {
    return (
-      <div className="max-w-4xl m-auto bg-white ">
+      <div className="bg-white text-secondary-dark">
          <AuthProvider>
             <Routes>
                <Route path="/" element={<Layout />}>

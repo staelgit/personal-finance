@@ -17,7 +17,7 @@ const MainMenu = () => {
                className="flex items-center"
                to={navItem.to}
             >
-               <div className="px-2 leading-7 rounded-md hover:bg-secondary-ultralight">
+               <div className="px-2 py-1 leading-7 rounded-md hover:bg-secondary-ultralight">
                   {navItem.title}
                </div>
             </NavLink>

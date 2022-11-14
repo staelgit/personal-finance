@@ -5,16 +5,16 @@ import Footer from './footer';
 
 const Layout = () => {
    return (
-      <div className="flex min-h-screen flex-col justify-between divide-y divide-secondary-light text-secondary-dark font-sans">
-         <div className="header px-2 h-10">
+      <div className="md:container min-h-screen px-2 m-auto flex  flex-col justify-between divide-y divide-secondary-light ">
+         <div className="h-10">
             <Header />
          </div>
 
-         <div className="main px-2 grow">
+         <div className="grow">
             <Outlet />
          </div>
 
-         <div className="footer px-2 h-12">
+         <div className="h-12">
             <Footer />
          </div>
       </div>
