@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
    const [isLoading, setLoading] = useState(true);
    const navigate = useNavigate();
 
-   const goHome = () => navigate('/');
+   // const goHome = () => navigate('/');
 
    async function updateUserData(data) {
       try {
@@ -42,7 +42,8 @@ const AuthProvider = ({ children }) => {
    function logOut() {
       localStorageService.removeAuthData();
       setUser(null);
-      goHome();
+      // goHome();
+      navigate('/');
    }
 
    async function signUp({ email, password, ...rest }) {
@@ -79,6 +80,7 @@ const AuthProvider = ({ children }) => {
    }
 
    async function signIn({ email, password }) {
+      console.log('вызов signIn');
       try {
          const { data } = await httpAuth.post(`accounts:signInWithPassword`, {
             email,
@@ -94,8 +96,9 @@ const AuthProvider = ({ children }) => {
          if (code === 400) {
             switch (message) {
                case 'INVALID_PASSWORD':
-                  throw new Error('Email или пароль введены не корректно');
-
+                  throw new Error('Пароль введен не корректно');
+               case 'EMAIL_NOT_FOUND':
+                  throw new Error('Email не найден');
                default:
                   throw new Error(
                      'Слишком много попыток входа. Попробуйте позднее'

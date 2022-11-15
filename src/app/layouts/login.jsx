@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import LoginForm from '../components/ui/loginForm';
+// import LoginForm from '../components/ui/loginForm';
+// import RegisterForm from '../components/ui/registerForm';
 import { useParams } from 'react-router-dom';
-import RegisterForm from '../components/ui/registerForm';
 import Card from '../components/common/Card';
+import LoginPage from '../components/ui/LoginPage';
+import SignupPage from '../components/ui/SignupPage';
+import StyledNavLink from '../components/ui/StyledNavLink';
 
 const Login = () => {
    const { type } = useParams;
@@ -17,28 +20,40 @@ const Login = () => {
    return (
       <>
          {formType === 'register' ? (
-            <Card className="m-auto w-96">
-               <Card.Title>Register</Card.Title>
-               <RegisterForm />
-               <p>
+            <Card className="m-auto mt-3 w-96">
+               {/* <Card.Title>Register</Card.Title> */}
+               {/* <RegisterForm /> */}
+               <SignupPage />
+               <div className="mt-3">
                   Already have account?{' '}
-                  <a role="Button" onClick={toggleFormType}>
-                     {' '}
-                     Sign In{' '}
-                  </a>
-               </p>
+                  <span className="text-sm text-slate-600">
+                     <StyledNavLink
+                        to=""
+                        styleType="underline"
+                        onClick={toggleFormType}
+                     >
+                        Log In
+                     </StyledNavLink>
+                  </span>
+               </div>
             </Card>
          ) : (
             <Card className="m-auto mt-10 w-96">
-               <Card.Title>Login</Card.Title>
-               <LoginForm />
-               <p>
+               {/* <Card.Title>Login</Card.Title> */}
+               {/* <LoginForm /> */}
+               <LoginPage />
+               <div className="mt-3">
                   Don`t have account?{' '}
-                  <a role="Button" onClick={toggleFormType}>
-                     {' '}
-                     Sign Up{' '}
-                  </a>
-               </p>
+                  <span className="text-sm text-slate-600">
+                     <StyledNavLink
+                        to=""
+                        styleType="underline"
+                        onClick={toggleFormType}
+                     >
+                        Sign Up
+                     </StyledNavLink>
+                  </span>
+               </div>
             </Card>
          )}
       </>
