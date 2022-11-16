@@ -38,7 +38,7 @@ const Login = () => {
                </div>
             </Card>
          ) : (
-            <Card className="m-auto mt-10 w-96">
+            <Card className="m-auto mt-8 w-96">
                {/* <Card.Title>Login</Card.Title> */}
                {/* <LoginForm /> */}
                <LoginPage />

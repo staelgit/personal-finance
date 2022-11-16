@@ -53,7 +53,7 @@ const NavProfile = () => {
                                  className="mr-2 h-5 w-5"
                                  aria-hidden="true"
                               />
-                              Профиль
+                              Profile
                            </button>
                         </Link>
                      )}
@@ -74,7 +74,7 @@ const NavProfile = () => {
                                  className="mr-2 h-5 w-5"
                                  aria-hidden="true"
                               />
-                              Выйти
+                              Logout
                            </button>
                         </Link>
                      )}

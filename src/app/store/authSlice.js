@@ -24,8 +24,8 @@ const initialState = localStorageService.getAccessToken()
         dataLoaded: false
      };
 
-const usersSlice = createSlice({
-   name: 'users',
+const authSlice = createSlice({
+   name: 'auth',
    initialState,
    reducers: {
       requested: (state) => {
@@ -39,6 +39,9 @@ const usersSlice = createSlice({
       requestFiled: (state, action) => {
          state.error = action.payload;
          state.isLoading = false;
+      },
+      authRequested: (state) => {
+         state.error = null;
       },
       authRequestSuccess: (state, action) => {
          state.auth = action.payload;
@@ -63,14 +66,11 @@ const usersSlice = createSlice({
          state.isLoggedIn = false;
          state.auth = null;
          state.dataLoaded = false;
-      },
-      authRequested: (state) => {
-         state.error = null;
       }
    }
 });
 
-const { reducer: usersReducer, actions } = usersSlice;
+const { reducer: authReducer, actions } = authSlice;
 const {
    requested,
    received,
@@ -193,4 +193,4 @@ export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
 export const getCurrentUserId = () => (state) => state.users.auth.userId;
 export const getAuthErrors = () => (state) => state.users.error;
 
-export default usersReducer;
+export default authReducer;

@@ -15,6 +15,7 @@ import Card from '../common/Card';
 import { useAuth } from '../../hooks/useAuth';
 // Icons
 import { KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import Alert from '../common/Alert';
 
 const validationSchema = Yup.object().shape({
    email: Yup.string().email('Invalid email address').required('Required'),
@@ -83,13 +84,7 @@ const LoginPage = () => {
                   </div>
                </form>
 
-               {message && (
-                  <div className="form-group">
-                     <div className="alert alert-danger" role="alert">
-                        {message}
-                     </div>
-                  </div>
-               )}
+               {message && <Alert type="danger">{message}</Alert>}
             </FormikProvider>
          </div>
       </>

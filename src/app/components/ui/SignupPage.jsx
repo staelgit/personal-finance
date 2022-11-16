@@ -15,6 +15,7 @@ import Card from '../common/Card';
 import { useAuth } from '../../hooks/useAuth';
 // Icons
 import { UserIcon, KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import Alert from '../common/Alert';
 
 const signUpSchema = Yup.object({
    name: Yup.string()
@@ -91,18 +92,7 @@ const SignUpPage = () => {
                </form>
             )}
             {message && (
-               <div className="form-group">
-                  <div
-                     className={
-                        successful
-                           ? 'alert alert-success'
-                           : 'alert alert-danger'
-                     }
-                     role="alert"
-                  >
-                     {message}
-                  </div>
-               </div>
+               <Alert type={successful ? 'success' : 'danger'}>{message}</Alert>
             )}
          </FormikProvider>
       </>

@@ -8,6 +8,7 @@ import localStorageService, {
 } from '../services/localStorage.service';
 import Loader from '../components/common/loader';
 import { useNavigate } from 'react-router-dom';
+import useUserBaseData from '../utils/initUserBaseData';
 
 export const httpAuth = axios.create({
    baseURL: 'https://identitytoolkit.googleapis.com/v1/',
@@ -27,6 +28,7 @@ const AuthProvider = ({ children }) => {
    const [error, setError] = useState(null);
    const [isLoading, setLoading] = useState(true);
    const navigate = useNavigate();
+   const { initializeUserBaseData } = useUserBaseData();
 
    // const goHome = () => navigate('/');
 
@@ -64,6 +66,7 @@ const AuthProvider = ({ children }) => {
                .substring(7)}.svg`,
             ...rest
          });
+         await initializeUserBaseData(data.localId);
       } catch (error) {
          errorCatcher(error);
          const { code, message } = error.response.data.error;

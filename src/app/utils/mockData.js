@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
-// import professions from '../mockData/professions.json';
-// import qualities from '../mockData/qualities.json';
-// import users from '../mockData/users.json';
 import cashAccounts from '../mockData/cashAccounts.json';
 import expenseCategories from '../mockData/expenseCategories.json';
 import incomeCategories from '../mockData/incomeCategories.json';
 import operations from '../mockData/operations.json';
-import typeCashAccounts from '../mockData/typeCashAccounts.json';
+// import typeCashAccounts from '../mockData/typeCashAccounts.json';
 
 import httpService from '../services/http.service';
 
@@ -25,8 +22,8 @@ const useMockData = () => {
       cashAccounts.length +
       expenseCategories.length +
       incomeCategories.length +
-      operations.length +
-      typeCashAccounts.length;
+      operations.length; /* +
+      typeCashAccounts.length */
    const incrementCount = () => {
       setCount((prevState) => prevState + 1);
    };
@@ -75,13 +72,13 @@ const useMockData = () => {
             await httpService.put('operation/' + operation._id, operation);
             incrementCount();
          }
-         for (const typeCashAccount of typeCashAccounts) {
+         /*   for (const typeCashAccount of typeCashAccounts) {
             await httpService.put(
                'type/' + typeCashAccount._id,
                typeCashAccount
             );
             incrementCount();
-         }
+         } */
       } catch (error) {
          setError(error);
          setStatus(statusConsts.error);
