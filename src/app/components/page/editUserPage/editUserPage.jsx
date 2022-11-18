@@ -6,13 +6,16 @@ import TextField from '../../common/form/textField';
 import Loader from '../../common/loader';
 import BackHistoryButton from '../../common/backButton';
 import { useAuth } from '../../../hooks/useAuth';
+import { useSelector } from 'react-redux';
+import { getCurrentUserData } from '../../../store/authSlice';
 
 const EditUserPage = () => {
    const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState(true);
    const [data, setData] = useState();
-   const { currentUser, updateUserData } = useAuth();
+   const { /* currentUser, */ updateUserData } = useAuth();
    const [errors, setErrors] = useState({});
+   const currentUser = useSelector(getCurrentUserData());
 
    useEffect(() => {
       if (currentUser && !data) {

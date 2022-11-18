@@ -13,27 +13,33 @@ import AuthProvider from './hooks/useAuth';
 import LogOut from './layouts/logOut';
 // import ProtectedRoute from './app/components/common/protectedRoute';
 import UserProfile from './layouts/userProfile';
+import AppLoader from './components/ui/hoc/appLoader';
 
 function App() {
    return (
       <div className="bg-white text-secondary-dark">
-         <AuthProvider>
-            <Routes>
-               <Route path="/" element={<Layout />}>
-                  <Route index element={<Main />} />
-                  <Route path="operations" element={<Operations />} />
-                  <Route path="income" element={<Income />} />
-                  <Route path="expense" element={<Expense />} />
-                  <Route path="accounts" element={<CashAccounts />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="logout" element={<LogOut />} />
-                  <Route path="user/:userId" element={<UserProfile />} />
-                  <Route path="user/:userId/:edit" element={<UserProfile />} />
-                  <Route path="*" element={<NotFound />} />
-               </Route>
-            </Routes>
-         </AuthProvider>
-         <ToastContainer />
+         <AppLoader>
+            <AuthProvider>
+               <Routes>
+                  <Route path="/" element={<Layout />}>
+                     <Route index element={<Main />} />
+                     <Route path="operations" element={<Operations />} />
+                     <Route path="income" element={<Income />} />
+                     <Route path="expense" element={<Expense />} />
+                     <Route path="accounts" element={<CashAccounts />} />
+                     <Route path="login" element={<Login />} />
+                     <Route path="logout" element={<LogOut />} />
+                     <Route path="user/:userId" element={<UserProfile />} />
+                     <Route
+                        path="user/:userId/:edit"
+                        element={<UserProfile />}
+                     />
+                     <Route path="*" element={<NotFound />} />
+                  </Route>
+               </Routes>
+            </AuthProvider>
+            <ToastContainer />
+         </AppLoader>
       </div>
    );
 }

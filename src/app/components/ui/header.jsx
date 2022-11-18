@@ -1,26 +1,30 @@
 import React from 'react';
 // import User from './user';
 import Logo from './logo';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import NavProfile from './navProfile';
 import MainMenu from './mainMenu';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../../store/authSlice';
 
 const Header = () => {
-   const { currentUser } = useAuth();
+   // const { currentUser } = useAuth();
+   const isLoggedIn = useSelector(getIsLoggedIn());
+
    return (
       <div className="flex h-full items-center justify-between">
          <Logo />
 
-         {currentUser && (
+         {isLoggedIn && (
             <div className="mx-4 h-full">
                <MainMenu />
             </div>
          )}
 
          <div className="d-flex">
-            {currentUser ? (
+            {isLoggedIn ? (
                <NavProfile />
             ) : (
                <Link

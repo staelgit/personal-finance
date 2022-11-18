@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { /* useState, */ useEffect } from 'react';
 // Libraries
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik, FormikProvider } from 'formik';
-import { useLocation, useNavigate } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
 // Store
-// import { login } from '../store/authSlice';
-import { clearMessage, setMessage } from '../../store/messageSlice';
+import { signIn } from '../../store/authSlice';
+import { clearMessage /*, setMessage */ } from '../../store/messageSlice';
 // Components
-import SpinLoading from '../common/SpinLoader';
+// import SpinLoading from '../common/SpinLoader';
 import Button from '../common/Button';
 import TextField from '../common/inputs/TextInput';
 import Card from '../common/Card';
-import { useAuth } from '../../hooks/useAuth';
+import history from '../../utils/history';
+// import { useAuth } from '../../hooks/useAuth';
 // Icons
 import { KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Alert from '../common/Alert';
@@ -28,11 +29,11 @@ const initialValues = {
 };
 
 const LoginPage = () => {
-   const [loading, setLoading] = useState(false);
+   // const [loading, setLoading] = useState(false);
    const { message } = useSelector((state) => state.message);
-   const navigate = useNavigate();
-   const location = useLocation();
-   const { signIn } = useAuth();
+   // const navigate = useNavigate();
+   // const location = useLocation();
+   // const { signIn } = useAuth();
    const dispatch = useDispatch();
 
    useEffect(() => {
@@ -40,7 +41,7 @@ const LoginPage = () => {
    }, [dispatch]);
 
    const handleLogin = async (formValue) => {
-      setLoading(true);
+      /* setLoading(true);
       const redirect = location.state ? location.state.referrer.pathname : '/';
       try {
          await signIn(formValue);
@@ -52,7 +53,12 @@ const LoginPage = () => {
          dispatch(setMessage(error.message));
       } finally {
          setLoading(false);
-      }
+      } */
+      // console.log(history);
+      const redirect = history.location.state
+         ? history.location.state.from.pathname
+         : '/';
+      dispatch(signIn({ payload: formValue, redirect }));
    };
 
    const formik = useFormik({
@@ -78,9 +84,8 @@ const LoginPage = () => {
                      icon={KeyIcon}
                   />
                   <div className="pt-2">
-                     <Button disabled={loading}>
-                        {loading && <SpinLoading />} Log In
-                     </Button>
+                     {/* <Button disabled={loading}> */}
+                     <Button>{/* {loading && <SpinLoading />} */}Log In</Button>
                   </div>
                </form>
 

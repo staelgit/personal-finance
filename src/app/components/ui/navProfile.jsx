@@ -6,10 +6,14 @@ import {
    UserIcon
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+// import { useAuth } from '../../hooks/useAuth';
+import { useSelector } from 'react-redux';
+import { getCurrentUserData } from '../../store/authSlice';
 
 const NavProfile = () => {
-   const { currentUser } = useAuth();
+   // const { currentUser } = useAuth();
+   const currentUser = useSelector(getCurrentUserData());
+   console.log('currentUser navProfile', currentUser);
    return (
       <Menu as="div" className="relative inline-block text-left">
          <div>

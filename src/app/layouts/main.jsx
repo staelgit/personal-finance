@@ -1,17 +1,20 @@
 import React from 'react';
 import useMockData from '../utils/mockData';
-import { useAuth } from '../hooks/useAuth';
+// import { useAuth } from '../hooks/useAuth';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn } from '../store/authSlice';
 
 const Main = () => {
    const { error, initialize, progress, status } = useMockData();
    const handleClick = () => {
       initialize();
    };
-   const { currentUser } = useAuth();
+   // const { currentUser } = useAuth();
+   const isLoggedIn = useSelector(getIsLoggedIn());
    return (
       <div>
          <h1>Main Page</h1>
-         {currentUser ? (
+         {isLoggedIn ? (
             <>
                <h3>Инициализация данных в FireBase</h3>
                <ul>

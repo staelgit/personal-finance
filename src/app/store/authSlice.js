@@ -28,15 +28,15 @@ const authSlice = createSlice({
    name: 'auth',
    initialState,
    reducers: {
-      requested: (state) => {
+      userRequested: (state) => {
          state.isLoading = true;
       },
-      received: (state, action) => {
+      userReceived: (state, action) => {
          state.entities = action.payload;
          state.dataLoaded = true;
          state.isLoading = false;
       },
-      requestFiled: (state, action) => {
+      userRequestFiled: (state, action) => {
          state.error = action.payload;
          state.isLoading = false;
       },
@@ -72,15 +72,15 @@ const authSlice = createSlice({
 
 const { reducer: authReducer, actions } = authSlice;
 const {
-   requested,
-   received,
-   requestFiled,
+   userRequested,
+   userReceived,
+   userRequestFiled,
+   authRequested,
    authRequestSuccess,
    authRequestFailed,
    userCreated,
    userUpdateSuccessful,
-   userLoggedOut,
-   authRequested
+   userLoggedOut
 } = actions;
 
 const userCreateRequested = createAction('users/userCreateRequested');
@@ -88,7 +88,7 @@ const createUserFailed = createAction('users/createUserFailed');
 const userUpdateRequested = createAction('users/userUpdateRequested');
 const userUpdateFailed = createAction('users/userUpdateFailed');
 
-export const login =
+export const signIn =
    ({ payload, redirect }) =>
    async (dispatch) => {
       const { email, password } = payload;
@@ -97,7 +97,10 @@ export const login =
          const data = await authService.login({ email, password });
          dispatch(authRequestSuccess({ userId: data.localId }));
          localStorageService.setTokens(data);
+         // dispatch(loadCurrentUserData());
+
          history.push(redirect);
+         console.log('history push');
       } catch (error) {
          const { code, message } = error.response.data.error;
          if (code === 400) {
@@ -155,13 +158,13 @@ function createUser(payload) {
    };
 }
 
-export const loadUsersList = () => async (dispatch) => {
-   dispatch(requested());
+export const loadCurrentUserData = () => async (dispatch) => {
+   dispatch(userRequested());
    try {
-      const { content } = await userService.get();
-      dispatch(received(content));
+      const { content } = await userService.getCurrentUser();
+      dispatch(userReceived(content));
    } catch (error) {
-      dispatch(requestFiled(error.message));
+      dispatch(userRequestFiled(error.message));
    }
 };
 
@@ -176,21 +179,30 @@ export const updateUser = (payload) => async (dispatch) => {
    }
 };
 
-export const getUsers = () => (state) => state.users.entities;
 export const getCurrentUserData = () => (state) => {
-   return state.users.entities
-      ? state.users.entities.find((u) => u._id === state.users.auth.userId)
-      : null;
+   return state.auth.entities ? state.auth.entities : null;
 };
-export const getUserById = (userId) => (state) => {
-   if (state.users.entities) {
-      return state.users.entities.find((u) => u._id === userId);
+
+// export const loadUsersList = () => async (dispatch) => {
+//    dispatch(userRequested());
+//    try {
+//       const { content } = await userService.get();
+//       dispatch(userReceived(content));
+//    } catch (error) {
+//       dispatch(userRequestFiled(error.message));
+//    }
+// };
+// export const getUsers = () => (state) => state.users.entities;
+/* export const getUserById = (userId) => (state) => {
+   if (state.auth.entities) {
+      return state.auth.entities.find((u) => u._id === userId);
    }
-};
-export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
-export const getDataStatus = () => (state) => state.users.dataLoaded;
-export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
-export const getCurrentUserId = () => (state) => state.users.auth.userId;
-export const getAuthErrors = () => (state) => state.users.error;
+}; */
+
+export const getIsLoggedIn = () => (state) => state.auth.isLoggedIn;
+export const getUserDataStatus = () => (state) => state.auth.dataLoaded;
+export const getUsersLoadingStatus = () => (state) => state.auth.isLoading;
+export const getCurrentUserId = () => (state) => state.auth.auth.userId;
+export const getAuthErrors = () => (state) => state.auth.error;
 
 export default authReducer;
