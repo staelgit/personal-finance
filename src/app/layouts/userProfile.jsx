@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Navigate, Route } from 'react-router-dom';
+import { useParams, Route, Redirect } from 'react-router-dom';
 import UserPage from '../components/page/userPage';
 import EditUserPage from '../components/page/editUserPage';
 import UserProvider from '../hooks/useUsers';
@@ -23,7 +23,7 @@ const UserProfile = () => {
                   <Route
                      path="*"
                      element={
-                        <Navigate to={`/user/${currentUserId}/edit`} replace />
+                        <Redirect to={`/user/${currentUserId}/edit`} replace />
                      }
                   />
                )

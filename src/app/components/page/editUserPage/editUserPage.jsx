@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { validator } from '../../../utils/validator';
 import TextField from '../../common/form/textField';
@@ -10,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { getCurrentUserData } from '../../../store/authSlice';
 
 const EditUserPage = () => {
-   const navigate = useNavigate();
    const [isLoading, setIsLoading] = useState(true);
    const [data, setData] = useState();
    const { /* currentUser, */ updateUserData } = useAuth();
@@ -65,7 +63,7 @@ const EditUserPage = () => {
       const isValid = validate();
       if (!isValid) return;
       await updateUserData(data);
-      navigate(`/user/${currentUser._id}`);
+      history.push(`/user/${currentUser._id}`);
    };
 
    return !isLoading ? (

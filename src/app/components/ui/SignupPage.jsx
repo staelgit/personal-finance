@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik, FormikProvider } from 'formik';
-import { useNavigate } from 'react-router-dom';
 // Store
 // import { signUp } from '../store/authSlice';
 import { clearMessage, setMessage } from '../../store/messageSlice';
@@ -16,6 +15,7 @@ import { useAuth } from '../../hooks/useAuth';
 // Icons
 import { UserIcon, KeyIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Alert from '../common/Alert';
+import history from '../../utils/history';
 
 const signUpSchema = Yup.object({
    name: Yup.string()
@@ -37,7 +37,6 @@ const SignUpPage = () => {
    const [loading, setLoading] = useState(false);
    const [successful, setSuccessful] = useState(false);
    const { message } = useSelector((state) => state.message);
-   const navigate = useNavigate();
    const dispatch = useDispatch();
    const { signUp } = useAuth();
 
@@ -51,7 +50,7 @@ const SignUpPage = () => {
       try {
          await signUp(formValues);
          setSuccessful(true);
-         navigate('/');
+         history.push('/');
       } catch (error) {
          dispatch(setMessage(error.message));
          setSuccessful(false);

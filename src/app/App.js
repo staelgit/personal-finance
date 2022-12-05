@@ -1,9 +1,9 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Main from './layouts/main';
 import Operations from './layouts/operations';
 import Login from './layouts/login';
-import NotFound from './layouts/notFound';
+// import NotFound from './layouts/notFound';
 import CashAccounts from './layouts/cashAccounts';
 import Income from './layouts/income';
 import Layout from './components/ui/layout';
@@ -17,30 +17,24 @@ import AppLoader from './components/ui/hoc/appLoader';
 
 function App() {
    return (
-      <div className="bg-white text-secondary-dark">
-         <AppLoader>
-            <AuthProvider>
-               <Routes>
-                  <Route path="/" element={<Layout />}>
-                     <Route index element={<Main />} />
-                     <Route path="operations" element={<Operations />} />
-                     <Route path="income" element={<Income />} />
-                     <Route path="expense" element={<Expense />} />
-                     <Route path="accounts" element={<CashAccounts />} />
-                     <Route path="login" element={<Login />} />
-                     <Route path="logout" element={<LogOut />} />
-                     <Route path="user/:userId" element={<UserProfile />} />
-                     <Route
-                        path="user/:userId/:edit"
-                        element={<UserProfile />}
-                     />
-                     <Route path="*" element={<NotFound />} />
-                  </Route>
-               </Routes>
-            </AuthProvider>
-            <ToastContainer />
-         </AppLoader>
-      </div>
+      <AppLoader>
+         <AuthProvider>
+            <Layout>
+               <Switch>
+                  <Route path="/operations" component={Operations} />
+                  <Route path="/income" component={Income} />
+                  <Route path="/expense" component={Expense} />
+                  <Route path="/accounts" component={CashAccounts} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/logout" component={LogOut} />
+                  <Route path="/user/:userId?/:edit?" component={UserProfile} />
+                  <Route exact path="/" component={Main} />
+                  <Redirect to="/" />
+               </Switch>
+            </Layout>
+         </AuthProvider>
+         <ToastContainer />
+      </AppLoader>
    );
 }
 

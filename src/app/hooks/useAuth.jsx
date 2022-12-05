@@ -7,7 +7,8 @@ import localStorageService, {
    setTokens
 } from '../services/localStorage.service';
 import Loader from '../components/common/loader';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
+import history from '../utils/history';
 import useUserBaseData from '../utils/initUserBaseData';
 
 export const httpAuth = axios.create({
@@ -27,7 +28,7 @@ const AuthProvider = ({ children }) => {
    const [currentUser, setUser] = useState();
    const [error, setError] = useState(null);
    const [isLoading, setLoading] = useState(true);
-   const navigate = useNavigate();
+   // const navigate = useNavigate();
    const { initializeUserBaseData } = useUserBaseData();
 
    // const goHome = () => navigate('/');
@@ -45,7 +46,8 @@ const AuthProvider = ({ children }) => {
       localStorageService.removeAuthData();
       setUser(null);
       // goHome();
-      navigate('/');
+      // navigate('/');
+      history.push('/');
    }
 
    async function signUp({ email, password, ...rest }) {

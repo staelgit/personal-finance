@@ -13,6 +13,7 @@ const MainMenu = () => {
       <nav className="space-x-2 h-full flex items-stretch justify-center">
          {navItems.map((navItem) => (
             <NavLink
+               exact={navItem.to === '/' && true}
                key={navItem.id}
                className="flex items-center"
                to={navItem.to}

@@ -2,20 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../../common/loader';
 // import { useUser } from '../../../hooks/useUsers';
-import { useNavigate } from 'react-router-dom';
 // import { useAuth } from '../../../hooks/useAuth';
 import { useSelector } from 'react-redux';
 import { getCurrentUserData } from '../../../store/authSlice';
+import history from '../../../utils/history';
 
 const UserPage = ({ id: userId }) => {
    // const { currentUser } = useAuth();
    const currentUser = useSelector(getCurrentUserData());
-   const navigate = useNavigate();
    // const { getUserById } = useUser();
    // const user = getUserById(userId);
 
    const handleClick = () => {
-      navigate(`edit`);
+      history.push(`edit`);
    };
 
    if (currentUser) {
