@@ -182,7 +182,7 @@ export const updateUser = (payload) => async (dispatch) => {
       const { content } = await userService.update(payload);
       console.log('content:', content);
       dispatch(userUpdateSuccessful(content));
-      history.push(`/users/${content._id}`);
+      history.push(`/app/users/${content._id}`);
    } catch (error) {
       dispatch(userUpdateFailed(error.message));
    }

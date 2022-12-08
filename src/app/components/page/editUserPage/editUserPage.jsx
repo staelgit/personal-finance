@@ -67,7 +67,7 @@ const EditUserPage = () => {
       if (!isValid) return;
       // await updateUserData(data);
       await dispatch(updateUser(data));
-      history.push(`/user/${currentUser._id}`);
+      history.push(`/app/user/${currentUser._id}`);
    };
 
    return !isLoading ? (

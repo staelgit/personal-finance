@@ -45,7 +45,7 @@ const NavProfile = () => {
                <div className="px-1 py-1">
                   <Menu.Item>
                      {({ active }) => (
-                        <Link to={`/user/${currentUser._id}`}>
+                        <Link to={`/app/user/${currentUser._id}`}>
                            <button
                               className={`${
                                  active

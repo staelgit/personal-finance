@@ -9,32 +9,37 @@ import Income from './layouts/income';
 import Layout from './components/ui/layout';
 import Expense from './layouts/expense';
 import { ToastContainer } from 'react-toastify';
-// import AuthProvider from './hooks/useAuth';
 import LogOut from './layouts/logOut';
-// import ProtectedRoute from './components/common/protectedRoute';
+import ProtectedRoute from './components/common/protectedRoute';
 import UserProfile from './layouts/userProfile';
 import AppLoader from './components/ui/hoc/appLoader';
 
 function App() {
    return (
       <AppLoader>
-         {/* <AuthProvider> */}
          <Layout>
             <Switch>
-               <Route path="/operations" component={Operations} />
-               <Route path="/income" component={Income} />
-               <Route path="/expense" component={Expense} />
-               <Route path="/accounts" component={CashAccounts} />
-               <Route path="/user/:userId?/:edit?" component={UserProfile} />
+               <ProtectedRoute path="/app" component={ProtectedAppRoutes} />
                <Route path="/login" component={Login} />
                <Route path="/logout" component={LogOut} />
                <Route exact path="/" component={Main} />
                <Redirect to="/" />
             </Switch>
          </Layout>
-         {/* </AuthProvider> */}
          <ToastContainer />
       </AppLoader>
+   );
+}
+function ProtectedAppRoutes() {
+   return (
+      <Switch>
+         <Route path="/app/operations" component={Operations} />
+         <Route path="/app/income" component={Income} />
+         <Route path="/app/expense" component={Expense} />
+         <Route path="/app/accounts" component={CashAccounts} />
+         <Route path="/app/user/:userId?/:edit?" component={UserProfile} />
+         <Redirect to="/" />
+      </Switch>
    );
 }
 
