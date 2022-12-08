@@ -19,7 +19,19 @@ function App() {
       <AppLoader>
          <Layout>
             <Switch>
-               <ProtectedRoute path="/app" component={ProtectedAppRoutes} />
+               <ProtectedRoute path="/app">
+                  <Switch>
+                     <Route path="/app/operations" component={Operations} />
+                     <Route path="/app/income" component={Income} />
+                     <Route path="/app/expense" component={Expense} />
+                     <Route path="/app/accounts" component={CashAccounts} />
+                     <Route
+                        path="/app/user/:userId?/:edit?"
+                        component={UserProfile}
+                     />
+                     <Redirect to="/" />
+                  </Switch>
+               </ProtectedRoute>
                <Route path="/login" component={Login} />
                <Route path="/logout" component={LogOut} />
                <Route exact path="/" component={Main} />
@@ -28,18 +40,6 @@ function App() {
          </Layout>
          <ToastContainer />
       </AppLoader>
-   );
-}
-function ProtectedAppRoutes() {
-   return (
-      <Switch>
-         <Route path="/app/operations" component={Operations} />
-         <Route path="/app/income" component={Income} />
-         <Route path="/app/expense" component={Expense} />
-         <Route path="/app/accounts" component={CashAccounts} />
-         <Route path="/app/user/:userId?/:edit?" component={UserProfile} />
-         <Redirect to="/" />
-      </Switch>
    );
 }
 
