@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { NavLink } from "react-router-dom";
 import { twMerge } from 'tailwind-merge';
 import { NavLink } from 'react-router-dom';
 const StyledNavLink = ({
@@ -47,7 +46,8 @@ StyledNavLink.propTypes = {
    ]),
    to: PropTypes.string,
    styleType: PropTypes.string,
-   className: PropTypes.string
+   className: PropTypes.string,
+   toggleFormType: PropTypes.func
 };
 
 export default StyledNavLink;

@@ -9,30 +9,30 @@ import Income from './layouts/income';
 import Layout from './components/ui/layout';
 import Expense from './layouts/expense';
 import { ToastContainer } from 'react-toastify';
-import AuthProvider from './hooks/useAuth';
+// import AuthProvider from './hooks/useAuth';
 import LogOut from './layouts/logOut';
-// import ProtectedRoute from './app/components/common/protectedRoute';
+// import ProtectedRoute from './components/common/protectedRoute';
 import UserProfile from './layouts/userProfile';
 import AppLoader from './components/ui/hoc/appLoader';
 
 function App() {
    return (
       <AppLoader>
-         <AuthProvider>
-            <Layout>
-               <Switch>
-                  <Route path="/operations" component={Operations} />
-                  <Route path="/income" component={Income} />
-                  <Route path="/expense" component={Expense} />
-                  <Route path="/accounts" component={CashAccounts} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/logout" component={LogOut} />
-                  <Route path="/user/:userId?/:edit?" component={UserProfile} />
-                  <Route exact path="/" component={Main} />
-                  <Redirect to="/" />
-               </Switch>
-            </Layout>
-         </AuthProvider>
+         {/* <AuthProvider> */}
+         <Layout>
+            <Switch>
+               <Route path="/operations" component={Operations} />
+               <Route path="/income" component={Income} />
+               <Route path="/expense" component={Expense} />
+               <Route path="/accounts" component={CashAccounts} />
+               <Route path="/user/:userId?/:edit?" component={UserProfile} />
+               <Route path="/login" component={Login} />
+               <Route path="/logout" component={LogOut} />
+               <Route exact path="/" component={Main} />
+               <Redirect to="/" />
+            </Switch>
+         </Layout>
+         {/* </AuthProvider> */}
          <ToastContainer />
       </AppLoader>
    );

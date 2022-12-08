@@ -4,16 +4,19 @@ import { validator } from '../../../utils/validator';
 import TextField from '../../common/form/textField';
 import Loader from '../../common/loader';
 import BackHistoryButton from '../../common/backButton';
-import { useAuth } from '../../../hooks/useAuth';
-import { useSelector } from 'react-redux';
-import { getCurrentUserData } from '../../../store/authSlice';
+// import { useAuth } from '../../../hooks/useAuth';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCurrentUserData, updateUser } from '../../../store/authSlice';
+import { useHistory } from 'react-router-dom';
 
 const EditUserPage = () => {
    const [isLoading, setIsLoading] = useState(true);
    const [data, setData] = useState();
-   const { /* currentUser, */ updateUserData } = useAuth();
+   // const {  currentUser,  updateUserData } = useAuth();
    const [errors, setErrors] = useState({});
+   const dispatch = useDispatch();
    const currentUser = useSelector(getCurrentUserData());
+   const history = useHistory();
 
    useEffect(() => {
       if (currentUser && !data) {
@@ -62,7 +65,8 @@ const EditUserPage = () => {
       e.preventDefault();
       const isValid = validate();
       if (!isValid) return;
-      await updateUserData(data);
+      // await updateUserData(data);
+      await dispatch(updateUser(data));
       history.push(`/user/${currentUser._id}`);
    };
 

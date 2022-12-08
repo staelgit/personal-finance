@@ -26,15 +26,14 @@ const Login = () => {
                <SignupPage />
                <div className="mt-3">
                   Already have account?{' '}
-                  <span className="text-sm text-slate-600">
-                     <StyledNavLink
-                        to=""
-                        styleType="underline"
-                        onClick={toggleFormType}
-                     >
-                        Log In
-                     </StyledNavLink>
-                  </span>
+                  <StyledNavLink
+                     to="login"
+                     styleType="underline"
+                     className="text-sm text-slate-600"
+                     onClick={toggleFormType}
+                  >
+                     Log In
+                  </StyledNavLink>
                </div>
             </Card>
          ) : (
@@ -44,15 +43,14 @@ const Login = () => {
                <LoginPage />
                <div className="mt-3">
                   Don`t have account?{' '}
-                  <span className="text-sm text-slate-600">
-                     <StyledNavLink
-                        to=""
-                        styleType="underline"
-                        onClick={toggleFormType}
-                     >
-                        Sign Up
-                     </StyledNavLink>
-                  </span>
+                  <StyledNavLink
+                     to="login"
+                     styleType="underline"
+                     className="text-sm text-slate-600"
+                     onClick={toggleFormType}
+                  >
+                     Sign Up
+                  </StyledNavLink>
                </div>
             </Card>
          )}

@@ -1,16 +1,29 @@
 import React from 'react';
-import useMockData from '../utils/mockData';
-// import { useAuth } from '../hooks/useAuth';
+// import useMockData from '../utils/mockData';
 import { useSelector } from 'react-redux';
 import { getIsLoggedIn } from '../store/authSlice';
 
 const Main = () => {
-   const { error, initialize, progress, status } = useMockData();
+   const isLoggedIn = useSelector(getIsLoggedIn());
+   return (
+      <div>
+         <h1>Main Page</h1>
+         {isLoggedIn ? (
+            <>
+               <h3>Залогиненый. Тут данные будут отображаться</h3>
+            </>
+         ) : (
+            <>
+               <h3>Не залогиненный. Нужно статью какую то.</h3>
+            </>
+         )}
+      </div>
+   );
+
+   /*   const { error, initialize, progress, status } = useMockData();
    const handleClick = () => {
       initialize();
    };
-   // const { currentUser } = useAuth();
-   const isLoggedIn = useSelector(getIsLoggedIn());
    return (
       <div>
          <h1>Main Page</h1>
@@ -33,6 +46,7 @@ const Main = () => {
          )}
       </div>
    );
+   */
 };
 
 export default Main;

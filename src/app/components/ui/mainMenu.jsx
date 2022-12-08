@@ -15,7 +15,7 @@ const MainMenu = () => {
             <NavLink
                exact={navItem.to === '/' && true}
                key={navItem.id}
-               className="flex items-center"
+               className="flex items-center main-menu-item"
                to={navItem.to}
             >
                <div className="px-2 py-1 leading-7 rounded-md hover:bg-secondary-ultralight">

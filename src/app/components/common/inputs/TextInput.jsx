@@ -8,7 +8,7 @@ const TextField = (props) => {
    const [showPassword, setShowPassword] = useState(false);
    const displayError = meta.touched && meta.error;
    const errorStyle =
-      'absolute text-slate-500 ring-blue-700 ring-opacity-5 appearance-none rounded block w-full   sm:text-sm -bottom-6 ';
+      'absolute text-danger-dark ring-blue-700 ring-opacity-5 appearance-none rounded block w-full   sm:text-sm -bottom-6 ';
 
    const getInputClasses = () => {
       return (

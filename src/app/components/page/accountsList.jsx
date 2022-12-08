@@ -6,8 +6,8 @@ const AccountsList = ({ accounts }) => {
       <ul>
          {accounts.map((account) => (
             <li
-               key={account.id}
-            >{`Счет с названием - ${account.title} --->   баланс - ${account.balance}`}</li>
+               key={account._id}
+            >{`Id - ${account._id}, Название - ${account.title}, userId - ${account.userId}`}</li>
          ))}
       </ul>
    );
@@ -16,10 +16,9 @@ const AccountsList = ({ accounts }) => {
 AccountsList.propTypes = {
    accounts: PropTypes.arrayOf(
       PropTypes.shape({
-         id: PropTypes.number.isRequired,
-         balance: PropTypes.number.isRequired,
+         _id: PropTypes.string.isRequired,
          title: PropTypes.string.isRequired,
-         typeId: PropTypes.number.isRequired
+         userId: PropTypes.string.isRequired
       })
    )
 };

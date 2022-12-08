@@ -5,16 +5,19 @@ import Loader from '../../common/loader';
 // import { useAuth } from '../../../hooks/useAuth';
 import { useSelector } from 'react-redux';
 import { getCurrentUserData } from '../../../store/authSlice';
-import history from '../../../utils/history';
+// import history from '../../../utils/history';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 const UserPage = ({ id: userId }) => {
    // const { currentUser } = useAuth();
    const currentUser = useSelector(getCurrentUserData());
    // const { getUserById } = useUser();
    // const user = getUserById(userId);
+   const history = useHistory();
+   const match = useRouteMatch();
 
    const handleClick = () => {
-      history.push(`edit`);
+      history.push(`${match.url}/edit`);
    };
 
    if (currentUser) {

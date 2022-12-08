@@ -13,7 +13,7 @@ import { getCurrentUserData } from '../../store/authSlice';
 const NavProfile = () => {
    // const { currentUser } = useAuth();
    const currentUser = useSelector(getCurrentUserData());
-   console.log('currentUser navProfile', currentUser);
+   // console.log('currentUser navProfile', currentUser);
    return (
       <Menu as="div" className="relative inline-block text-left">
          <div>

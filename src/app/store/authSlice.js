@@ -2,9 +2,12 @@ import { createSlice, createAction } from '@reduxjs/toolkit';
 import userService from '../services/user.service';
 import authService from '../services/auth.service';
 import localStorageService from '../services/localStorage.service';
-import getRandomInt from '../utils/getRandomInt';
+// import getRandomInt from '../utils/getRandomInt';
 import history from '../utils/history';
 import { generateAuthError } from '../utils/generateAuthError';
+// import useUserBaseData from '../utils/initUserBaseData';
+
+// const { initializeUserBaseData } = useUserBaseData();
 
 const initialState = localStorageService.getAccessToken()
    ? {
@@ -51,15 +54,10 @@ const authSlice = createSlice({
          state.error = action.payload;
       },
       userCreated: (state, action) => {
-         if (!Array.isArray(state.entities)) {
-            state.entities = [];
-         }
-         state.entities.push(action.payload);
+         state.entities = action.payload;
       },
       userUpdateSuccessful: (state, action) => {
-         state.entities[
-            state.entities.findIndex((u) => u._id === action.payload._id)
-         ] = action.payload;
+         state.entities = action.payload;
       },
       userLoggedOut: (state) => {
          state.entities = null;
@@ -97,10 +95,11 @@ export const signIn =
          const data = await authService.login({ email, password });
          dispatch(authRequestSuccess({ userId: data.localId }));
          localStorageService.setTokens(data);
+         // todo: это заглушка из за несрабатывания юзэффекта в апплоадере, переделать
          // dispatch(loadCurrentUserData());
 
          history.push(redirect);
-         console.log('history push');
+         // console.log('history push');
       } catch (error) {
          const { code, message } = error.response.data.error;
          if (code === 400) {
@@ -124,8 +123,6 @@ export const signUp =
             createUser({
                _id: data.localId,
                email,
-               rate: getRandomInt(1, 5),
-               completedMeetings: getRandomInt(0, 200),
                image: `https://avatars.dicebear.com/api/avataaars/${(
                   Math.random() + 1
                )
@@ -134,8 +131,18 @@ export const signUp =
                ...rest
             })
          );
+
+         // todo: это заглушка из за несрабатывания юзэффекта в апплоадере, переделать
+         // await dispatch(loadCurrentUserData());
+         history.push('/');
       } catch (error) {
-         dispatch(authRequestFailed(error.message));
+         const { code, message } = error.response.data.error;
+         if (code === 400) {
+            const errorMessage = generateAuthError(message);
+            dispatch(authRequestFailed(errorMessage));
+         } else {
+            dispatch(authRequestFailed(error.message));
+         }
       }
    };
 
@@ -150,8 +157,8 @@ function createUser(payload) {
       dispatch(userCreateRequested());
       try {
          const { content } = await userService.create(payload);
+         console.log('payload:', payload);
          dispatch(userCreated(content));
-         history.push('/users');
       } catch (error) {
          dispatch(createUserFailed(error.message));
       }
@@ -159,6 +166,7 @@ function createUser(payload) {
 }
 
 export const loadCurrentUserData = () => async (dispatch) => {
+   console.log('dispatch loadCurrentUserData');
    dispatch(userRequested());
    try {
       const { content } = await userService.getCurrentUser();
@@ -172,6 +180,7 @@ export const updateUser = (payload) => async (dispatch) => {
    dispatch(userUpdateRequested());
    try {
       const { content } = await userService.update(payload);
+      console.log('content:', content);
       dispatch(userUpdateSuccessful(content));
       history.push(`/users/${content._id}`);
    } catch (error) {

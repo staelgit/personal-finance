@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
    getCurrentUserData,
    getIsLoggedIn,
-   getUserDataStatus,
+   // getUserDataStatus,
    getUsersLoadingStatus,
    // loadUsersList,
    loadCurrentUserData
 } from '../../../store/authSlice';
-// import { loadQualitiesList } from '../../../store/qualities';
+import Loader from '../../common/loader';
+import {
+   loadAccountsList,
+   getAccountsLoadingStatus
+} from '../../../store/accounSlice';
 // import { loadProfessionsList } from '../../../store/professions';
 
 const AppLoader = ({ children }) => {
@@ -17,45 +21,30 @@ const AppLoader = ({ children }) => {
    const isLoggedIn = useSelector(getIsLoggedIn());
    const currentUser = useSelector(getCurrentUserData());
    const usersStatusLoading = useSelector(getUsersLoadingStatus());
-   const userDataStatus = useSelector(getUserDataStatus());
-   console.log('Apploader');
-   console.log('currentUser Apploader', currentUser);
-   console.log('isLoggedIn Apploader', isLoggedIn);
-   console.log('usersStatusLoading Apploader', usersStatusLoading);
-   console.log('userDataStatus Apploader', userDataStatus);
+   const accountsStatusLoading = useSelector(getAccountsLoadingStatus());
 
-   /*   useEffect(() => {
-      console.log('UseEffect');
-      // dispatch(loadQualitiesList());
-      // dispatch(loadProfessionsList());
-      const result = isLoggedIn && !userDataStatus;
-      console.log('result', result);
-      if (result) {
-         console.log('dispatch loadCurrentUserData');
-         dispatch(loadCurrentUserData());
-      }
-   }, [isLoggedIn]); */
+   console.log('AppLoader');
+   // console.log('currentUser from AppLoader', currentUser);
+   console.log('isLoggedIn from AppLoader', isLoggedIn);
+   // console.log('usersStatusLoading from AppLoader', usersStatusLoading);
+   // console.log('accountsStatusLoading:', accountsStatusLoading);
 
    useEffect(() => {
-      console.log('useEffect');
-      const result = isLoggedIn && !userDataStatus;
+      console.log('useEffect isLoggedIn from appLoader');
+      const result = isLoggedIn && !currentUser;
       console.log('result', result);
       if (result) {
-         console.log('dispatch loadCurrentUserData');
          dispatch(loadCurrentUserData());
+         dispatch(loadAccountsList());
       }
    }, [isLoggedIn]);
 
-   /*   const result = isLoggedIn && !userDataStatus;
-   console.log('result', result);
-   if (result) {
-      console.log('dispatch loadCurrentUserData');
-      dispatch(loadCurrentUserData());
-   } */
-
-   console.log('currentUser Apploader after', currentUser);
-
-   if (usersStatusLoading) return 'Loading...';
+   // console.log('currentUser AppLoader after', currentUser);
+   const isShowLoader =
+      isLoggedIn &&
+      (!currentUser || usersStatusLoading || accountsStatusLoading);
+   console.log('isShowLoader:', isShowLoader);
+   if (isShowLoader) return <Loader />;
 
    return children;
 };
