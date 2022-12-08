@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
    getCurrentUserData,
    getIsLoggedIn,
-   // getUserDataStatus,
    getUsersLoadingStatus,
-   // loadUsersList,
    loadCurrentUserData
 } from '../../../store/authSlice';
 import Loader from '../../common/loader';
@@ -14,14 +12,23 @@ import {
    loadAccountsList,
    getAccountsLoadingStatus
 } from '../../../store/accounSlice';
-// import { loadProfessionsList } from '../../../store/professions';
+import {
+   loadCategoriesList,
+   getCategoriesLoadingStatus
+} from '../../../store/categorySlice';
+import {
+   getOperationsLoadingStatus,
+   loadOperationsList
+} from '../../../store/operationSlice';
 
 const AppLoader = ({ children }) => {
    const dispatch = useDispatch();
    const isLoggedIn = useSelector(getIsLoggedIn());
    const currentUser = useSelector(getCurrentUserData());
-   const usersStatusLoading = useSelector(getUsersLoadingStatus());
-   const accountsStatusLoading = useSelector(getAccountsLoadingStatus());
+   const usersLoadingStatus = useSelector(getUsersLoadingStatus());
+   const accountsLoadingStatus = useSelector(getAccountsLoadingStatus());
+   const categoriesLoadingStatus = useSelector(getCategoriesLoadingStatus());
+   const operationsLoadingStatus = useSelector(getOperationsLoadingStatus());
 
    console.log('AppLoader');
    // console.log('currentUser from AppLoader', currentUser);
@@ -36,15 +43,21 @@ const AppLoader = ({ children }) => {
       if (result) {
          dispatch(loadCurrentUserData());
          dispatch(loadAccountsList());
+         dispatch(loadCategoriesList());
+         dispatch(loadOperationsList());
       }
    }, [isLoggedIn]);
 
    // console.log('currentUser AppLoader after', currentUser);
-   const isShowLoader =
+   const isLoaderVisible =
       isLoggedIn &&
-      (!currentUser || usersStatusLoading || accountsStatusLoading);
-   console.log('isShowLoader:', isShowLoader);
-   if (isShowLoader) return <Loader />;
+      (!currentUser ||
+         usersLoadingStatus ||
+         accountsLoadingStatus ||
+         categoriesLoadingStatus ||
+         operationsLoadingStatus);
+   console.log('isLoaderVisible:', isLoaderVisible);
+   if (isLoaderVisible) return <Loader />;
 
    return children;
 };

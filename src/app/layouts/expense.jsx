@@ -1,15 +1,19 @@
 import React from 'react';
-import categoryService from '../services/category.service';
+// import categoryService from '../services/category.service';
+import { useSelector } from 'react-redux';
+import { getCategories } from '../store/categorySlice';
 
 const Expense = () => {
-   const getCategory = async () => {
+   const categories = useSelector(getCategories());
+   console.log('categories from redux:', categories);
+   /*   const getCategory = async () => {
       try {
          const { content } = await categoryService.get();
          console.log('content:', content);
          return content;
       } catch (e) {}
    };
-   /*   const createCategory = async () => {
+      const createCategory = async () => {
       try {
          const { content } = await categoryService.create(
             { type: 'expense', title: 'Новая категория 2' },
@@ -39,7 +43,7 @@ const Expense = () => {
          return content;
       } catch (e) {}
    }; */
-   getCategory().then();
+   // getCategory().then();
    // deleteCategory().then();
    // updateCategory().then();
    // createCategory().then();

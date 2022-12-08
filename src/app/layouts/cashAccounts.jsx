@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const CashAccounts = () => {
    const accounts = useSelector(getAccounts());
-   console.log('accounts:', accounts);
+   console.log('accounts from redux:', accounts);
 
    // const [accounts, setAccounts] = useState([]);
    // const [loading /*, setLoading */] = useState(false);
@@ -59,7 +59,7 @@ const CashAccounts = () => {
 
    return (
       <div>
-         <h1>Счета 133</h1>
+         <h1>Счета</h1>
          <AccountsList accounts={accounts} />
       </div>
    );

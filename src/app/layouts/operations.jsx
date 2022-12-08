@@ -1,30 +1,34 @@
 import React from 'react';
-import operationService from '../services/operation.service';
+// import operationService from '../services/operation.service';
+import { useSelector } from 'react-redux';
+import { getOperations } from '../store/operationSlice';
 
 const Operations = () => {
-   const getOperation = async () => {
-      try {
-         const { content } = await operationService.get();
-         console.log('content:', content);
-         return content;
-      } catch (e) {}
-   };
-   /*   const createOperation = async () => {
-      try {
-         const { content } = await operationService.create(
-            {
-               date: 1660743000001,
-               type: 'expense',
-               categoryId: 3,
-               accountId: 2,
-               comment: 'ККУУУкупил какую то фигню... '
-            },
-            'newUserId2'
-         );
-         console.log('content from createOperation:', content);
-         return content;
-      } catch (e) {}
-   }; */
+   const operations = useSelector(getOperations());
+   console.log('operations from redux:', operations);
+   /*   const getOperation = async () => {
+         try {
+            const { content } = await operationService.get();
+            console.log('content:', content);
+            return content;
+         } catch (e) {}
+      };
+         const createOperation = async () => {
+         try {
+            const { content } = await operationService.create(
+               {
+                  date: 1660743000001,
+                  type: 'expense',
+                  categoryId: 3,
+                  accountId: 2,
+                  comment: 'ККУУУкупил какую то фигню... '
+               },
+               'newUserId2'
+            );
+            console.log('content from createOperation:', content);
+            return content;
+         } catch (e) {}
+      }; */
    /*   const updateOperation = async () => {
       try {
          const { content } = await operationService.update({
@@ -49,7 +53,7 @@ const Operations = () => {
    }; */
    // createOperation().then();
    // updateOperation().then();
-   getOperation().then();
+   // getOperation().then();
    // deleteOperation().then();
    return <h1>Operations Page</h1>;
 };
