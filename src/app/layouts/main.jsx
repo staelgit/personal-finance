@@ -1,20 +1,57 @@
 import React from 'react';
 // import useMockData from '../utils/mockData';
-import { useSelector } from 'react-redux';
-import { getIsLoggedIn } from '../store/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIsLoggedIn, signIn } from '../store/authSlice';
+import StyledNavLink from '../components/ui/StyledNavLink';
 
 const Main = () => {
    const isLoggedIn = useSelector(getIsLoggedIn());
+   const dispatch = useDispatch();
+
+   const handleLogin = async () => {
+      const demoUser = { email: 'demo@gmail.com', password: '3gs6A9bVFB' };
+      const redirect = '/';
+      dispatch(signIn({ payload: demoUser, redirect }));
+   };
+
    return (
       <div>
-         <h1>Main Page</h1>
+         <div>main page</div>
          {isLoggedIn ? (
             <>
                <h3>Залогиненый. Тут данные будут отображаться</h3>
             </>
          ) : (
             <>
-               <h3>Не залогиненный. Нужно статью какую то.</h3>
+               <h1>Приветственное слово</h1>
+               <p>
+                  Здравствуй дорогой друг. Та находишься на сайте, который
+                  предоставляет онлайн сервис для учета доходов и расходов.
+               </p>
+               <p>
+                  Для того чтобы воспользоваться данным сервисом нужно{' '}
+                  <StyledNavLink
+                     to="login"
+                     styleType="underline"
+                     className="text-sm text-slate-600"
+                  >
+                     авторизоваться
+                  </StyledNavLink>
+                  .{' '}
+               </p>
+               <p>
+                  Так же, для демонстрации возможностей сервиса есть готовый
+                  пользователь. Ты можешь{' '}
+                  <StyledNavLink
+                     to=""
+                     styleType="underline"
+                     className="text-sm text-slate-600"
+                     onClick={handleLogin}
+                  >
+                     войти под ним
+                  </StyledNavLink>{' '}
+                  и посмотреть как все выглядит уже в `рабочем` состоянии.{' '}
+               </p>
             </>
          )}
       </div>
