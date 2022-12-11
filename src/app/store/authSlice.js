@@ -2,7 +2,6 @@ import { createSlice, createAction } from '@reduxjs/toolkit';
 import userService from '../services/user.service';
 import authService from '../services/auth.service';
 import localStorageService from '../services/localStorage.service';
-// import getRandomInt from '../utils/getRandomInt';
 import history from '../utils/history';
 import { generateAuthError } from '../utils/generateAuthError';
 // import useUserBaseData from '../utils/initUserBaseData';
@@ -76,13 +75,13 @@ const {
    authRequested,
    authRequestSuccess,
    authRequestFailed,
-   userCreated,
+   // userCreated,
    userUpdateSuccessful,
    userLoggedOut
 } = actions;
 
-const userCreateRequested = createAction('users/userCreateRequested');
-const createUserFailed = createAction('users/createUserFailed');
+// const userCreateRequested = createAction('users/userCreateRequested');
+// const createUserFailed = createAction('users/createUserFailed');
 const userUpdateRequested = createAction('users/userUpdateRequested');
 const userUpdateFailed = createAction('users/userUpdateFailed');
 
@@ -95,8 +94,6 @@ export const signIn =
          const data = await authService.login({ email, password });
          dispatch(authRequestSuccess({ userId: data.localId }));
          localStorageService.setTokens(data);
-         // todo: это заглушка из за несрабатывания юзэффекта в апплоадере, переделать
-         // dispatch(loadCurrentUserData());
 
          history.push(redirect);
          // console.log('history push');
@@ -111,40 +108,38 @@ export const signIn =
       }
    };
 
-export const signUp =
-   ({ email, password, ...rest }) =>
-   async (dispatch) => {
-      dispatch(authRequested());
-      try {
-         const data = await authService.register({ email, password });
-         localStorageService.setTokens(data);
-         dispatch(authRequestSuccess({ userId: data.localId }));
-         dispatch(
-            createUser({
-               _id: data.localId,
-               email,
-               image: `https://avatars.dicebear.com/api/avataaars/${(
-                  Math.random() + 1
-               )
-                  .toString(36)
-                  .substring(7)}.svg`,
-               ...rest
-            })
-         );
+export const signUp = (payload) => async (dispatch) => {
+   dispatch(authRequested());
+   try {
+      const data = await authService.register(payload);
+      localStorageService.setTokens(data);
+      dispatch(authRequestSuccess({ userId: data.userId }));
+      /*
+      dispatch(
+         createUser({
+            _id: data.localId,
+            email,
+            image: `https://avatars.dicebear.com/api/avataaars/${(
+               Math.random() + 1
+            )
+               .toString(36)
+               .substring(7)}.svg`,
+            ...rest
+         })
+      );
+*/
 
-         // todo: это заглушка из за несрабатывания юзэффекта в апплоадере, переделать
-         // await dispatch(loadCurrentUserData());
-         history.push('/');
-      } catch (error) {
-         const { code, message } = error.response.data.error;
-         if (code === 400) {
-            const errorMessage = generateAuthError(message);
-            dispatch(authRequestFailed(errorMessage));
-         } else {
-            dispatch(authRequestFailed(error.message));
-         }
+      history.push('/');
+   } catch (error) {
+      const { code, message } = error.response.data.error;
+      if (code === 400) {
+         const errorMessage = generateAuthError(message);
+         dispatch(authRequestFailed(errorMessage));
+      } else {
+         dispatch(authRequestFailed(error.message));
       }
-   };
+   }
+};
 
 export const logOut = () => (dispatch) => {
    localStorageService.removeAuthData();
@@ -152,6 +147,7 @@ export const logOut = () => (dispatch) => {
    history.push('/');
 };
 
+/*
 function createUser(payload) {
    return async function (dispatch) {
       dispatch(userCreateRequested());
@@ -164,6 +160,7 @@ function createUser(payload) {
       }
    };
 }
+*/
 
 export const loadCurrentUserData = () => async (dispatch) => {
    console.log('dispatch loadCurrentUserData');

@@ -1,6 +1,5 @@
 [
   {
-    "_id": 1,
     "date": 1660743951490,
     "type": "income",
     "categoryId": 20,
@@ -8,7 +7,6 @@
     "comment": "таки получил я зарплату"
   },
   {
-    "_id": 2,
     "date": 1660743000001,
     "type": "expense",
     "categoryId": 4,

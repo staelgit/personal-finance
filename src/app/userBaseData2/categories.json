@@ -1,14 +1,14 @@
 [
-  {"_id": 1, "type": "expense", "title": "Кафе и рестораны" },
-  {"_id": 2, "type": "expense", "title": "Продукты" },
-  {"_id": 3, "type": "expense", "title": "Здоровье и фитнес" },
-  {"_id": 4, "type": "expense", "title": "Развлечения" },
-  {"_id": 5, "type": "expense", "title": "Хозтовары и личная гигиена" },
-  {"_id": 6, "type": "expense", "title": "Авто" },
-  {"_id": 7, "type": "expense", "title": "Транспорт" },
-  {"_id": 8, "type": "expense", "title": "Лекарства" },
-  {"_id": 9, "type": "expense", "title": "Бытовая техника" },
-  {"_id": 10, "type": "income", "title": "Зарплата"},
-  {"_id": 11, "type": "income", "title": "Проценты от вклада в банке"},
-  {"_id": 12, "type": "income", "title": "Деньги полученные в подарок" }
+  {"type": "expense", "title": "Кафе и рестораны" },
+  {"type": "expense", "title": "Продукты" },
+  {"type": "expense", "title": "Здоровье и фитнес" },
+  {"type": "expense", "title": "Развлечения" },
+  {"type": "expense", "title": "Хозтовары и личная гигиена" },
+  {"type": "expense", "title": "Авто" },
+  {"type": "expense", "title": "Транспорт" },
+  {"type": "expense", "title": "Лекарства" },
+  {"type": "expense", "title": "Бытовая техника" },
+  {"type": "income", "title": "Зарплата"},
+  {"type": "income", "title": "Проценты от вклада в банке"},
+  {"type": "income", "title": "Деньги полученные в подарок" }
 ]

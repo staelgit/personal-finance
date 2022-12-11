@@ -1,5 +1,5 @@
 import httpService from './http.service';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 
 const accountEndPoint = 'account/';
 
@@ -10,10 +10,10 @@ const accountService = {
       return data;
    },
    create: async (payload, userId) => {
-      const _id = payload._id ? payload._id : nanoid();
-      console.log('_id:', _id);
-      const { data } = await httpService.put(accountEndPoint + _id, {
-         _id,
+      // const _id = payload._id ? payload._id : nanoid();
+      // console.log('_id:', _id);
+      const { data } = await httpService.post(accountEndPoint, {
+         // _id,
          ...payload,
          userId
       });

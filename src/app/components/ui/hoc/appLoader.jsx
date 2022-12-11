@@ -48,7 +48,6 @@ const AppLoader = ({ children }) => {
       }
    }, [isLoggedIn]);
 
-   // console.log('currentUser AppLoader after', currentUser);
    const isLoaderVisible =
       isLoggedIn &&
       (!currentUser ||
