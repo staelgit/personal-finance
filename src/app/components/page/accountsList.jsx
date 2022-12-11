@@ -7,20 +7,15 @@ const AccountsList = ({ accounts }) => {
          {accounts.map((account) => (
             <li
                key={account._id}
-            >{`Id - ${account._id}, Название - ${account.title}, userId - ${account.userId}`}</li>
+               className="text-sm"
+            >{`Id - ${account._id}, title - ${account.title}, userId - ${account.userId}`}</li>
          ))}
       </ul>
    );
 };
 
 AccountsList.propTypes = {
-   accounts: PropTypes.arrayOf(
-      PropTypes.shape({
-         _id: PropTypes.string.isRequired,
-         title: PropTypes.string.isRequired,
-         userId: PropTypes.string.isRequired
-      })
-   )
+   accounts: PropTypes.array
 };
 
 export default AccountsList;

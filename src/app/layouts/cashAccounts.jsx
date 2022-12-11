@@ -1,86 +1,43 @@
 import React from 'react';
 // import Loader from '../components/ui/loader';
 import AccountsList from '../components/page/accountsList';
-// import accountService from '../services/account.service';
-import { getAccounts } from '../store/accounSlice';
-import { useSelector } from 'react-redux';
-import accountService from '../services/account.service';
+import {
+   getAccounts,
+   createAccount,
+   updateAccount,
+   removeAccount
+} from '../store/accounSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserId } from '../store/authSlice';
 
 const CashAccounts = () => {
+   const dispatch = useDispatch();
    const accounts = useSelector(getAccounts());
    const userId = useSelector(getCurrentUserId());
    console.log('accounts from redux:', accounts);
 
-   // const [accounts, setAccounts] = useState([]);
-   // const [loading /*, setLoading */] = useState(false);
-   /*   const getAccounts = async () => {
-      try {
-         const { content } = await accountService.get();
-         console.log('content:', content);
-         return content;
-      } catch (e) {}
-   }; */
-   /*   const createAccount = async () => {
-      try {
-         const { content } = await accountService.create(
-            {
-               title: 'Банковская ячейка1'
-            },
-            'newUserId1'
-         );
-         console.log('content from create account:', content);
-         return content;
-      } catch (e) {}
-   }; */
-   /* const updateAccount = async () => {
-      try {
-         const { content } = await accountService.update({
-            userId: '5tEZi7fnscO19fbprmlMhKMwM6A3',
-            _id: 'GJMZWN_8hTtWSCoLAtCOL',
-            title: 'Банковская ячейка_из метода апдейт'
-         });
-         console.log('content:', content);
-         return content;
-      } catch (e) {}
-   }; */
-   /*   const deleteAccounts = async () => {
-      try {
-         const { content } = await accountService.remove(
-            '-fPX6VdgEkhHFB27_K6Dy'
-         );
-         console.log('content:', content);
-         return content;
-      } catch (e) {}
-   }; */
-   // getAccounts().then();
-   // deleteAccounts().then();
-   // updateAccount().then();
-   // createAccount().then();
-
-   // if (loading) return <Loader />;
    const handleCreate = async () => {
-      const newAccount = await accountService.create(
-         {
-            title: 'Банковская ячейка'
-         },
-         userId
+      dispatch(
+         createAccount(
+            {
+               title: 'test redux create account'
+            },
+            userId
+         )
       );
-      console.log('newAccount:', newAccount);
-   };
-   const handleDelete = async () => {
-      const deletedAccount = await accountService.remove(
-         '6394e6c532fe7c32c1d6e835'
-      );
-      console.log('deletedAccount:', deletedAccount);
    };
    const handleUpdate = async () => {
-      const updatedAccount = await accountService.update({
-         _id: '6394e6e232fe7c32c1d6e845',
-         title: 'Зарплатная карта'
-      });
-      console.log('updatedAccount:', updatedAccount);
+      dispatch(
+         updateAccount({
+            _id: '63960de8660a22c5ea92a1c8',
+            title: 'отредактированный тайтл3'
+         })
+      );
    };
+   const handleDelete = async () => {
+      dispatch(removeAccount('6396304f660a22c5ea92a1fd'));
+   };
+
    return (
       <div>
          <h1>Счета</h1>

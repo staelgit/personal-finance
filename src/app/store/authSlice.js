@@ -92,11 +92,9 @@ export const signIn =
       dispatch(authRequested());
       try {
          const data = await authService.login({ email, password });
-         dispatch(authRequestSuccess({ userId: data.localId }));
          localStorageService.setTokens(data);
-
+         dispatch(authRequestSuccess({ userId: data.userId }));
          history.push(redirect);
-         // console.log('history push');
       } catch (error) {
          const { code, message } = error.response.data.error;
          if (code === 400) {

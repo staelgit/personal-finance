@@ -10,10 +10,7 @@ const accountService = {
       return data;
    },
    create: async (payload, userId) => {
-      // const _id = payload._id ? payload._id : nanoid();
-      // console.log('_id:', _id);
       const { data } = await httpService.post(accountEndPoint, {
-         // _id,
          ...payload,
          userId
       });

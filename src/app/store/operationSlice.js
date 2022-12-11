@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import operationService from '../services/operation.service';
 import isOutdated from '../utils/isOutdated';
 
@@ -22,12 +22,40 @@ const operationSlice = createSlice({
       requestFiled: (state, action) => {
          state.error = action.payload;
          state.isLoading = false;
+      },
+      operationCreated: (state, action) => {
+         state.entities.push(action.payload);
+      },
+      operationRemoved: (state, action) => {
+         state.entities = state.entities.filter(
+            (c) => c._id !== action.payload
+         );
+      },
+      operationUpdateSuccessful: (state, action) => {
+         state.entities[
+            state.entities.findIndex((u) => u._id === action.payload._id)
+         ] = action.payload;
       }
    }
 });
 
 const { reducer: operationsReducer, actions } = operationSlice;
-const { requested, received, requestFiled } = actions;
+const {
+   requested,
+   received,
+   requestFiled,
+   operationCreated,
+   operationRemoved,
+   operationUpdateSuccessful
+} = actions;
+
+const addOperationRequested = createAction('operations/addOperationRequested');
+const removeOperationRequested = createAction(
+   'operations/removeOperationRequested'
+);
+const updateOperationRequested = createAction(
+   'operations/updateOperationRequested'
+);
 
 export const loadOperationsList = () => async (dispatch, getState) => {
    console.log('dispatch loadOperationsList');
@@ -40,6 +68,37 @@ export const loadOperationsList = () => async (dispatch, getState) => {
       } catch (error) {
          dispatch(requestFiled(error.message));
       }
+   }
+};
+
+export const createOperation = (payload, userId) => async (dispatch) => {
+   dispatch(addOperationRequested());
+   try {
+      const { content } = await operationService.create(payload, userId);
+      dispatch(operationCreated(content));
+   } catch (error) {
+      dispatch(requestFiled(error.message));
+   }
+};
+export const removeOperation = (operationId) => async (dispatch) => {
+   dispatch(removeOperationRequested());
+   try {
+      const { content } = await operationService.remove(operationId);
+      if (!content) {
+         dispatch(operationRemoved(operationId));
+      }
+   } catch (error) {
+      dispatch(requestFiled(error.message));
+   }
+};
+
+export const updateOperation = (payload) => async (dispatch) => {
+   dispatch(updateOperationRequested());
+   try {
+      const { content } = await operationService.update(payload);
+      dispatch(operationUpdateSuccessful(content));
+   } catch (error) {
+      dispatch(requestFiled(error.message));
    }
 };
 
